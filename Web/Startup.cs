@@ -1,4 +1,9 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.IO;
+using System.Web.Http;
+using Microsoft.Owin;
+using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.StaticFiles;
 using Owin;
 
 namespace Web
@@ -18,7 +23,17 @@ namespace Web
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            appBuilder.UseWebApi(config);
+           
+            var fileserverOptions = new FileServerOptions()
+            {
+                EnableDefaultFiles = true
+            };
+            fileserverOptions.StaticFileOptions.FileSystem = new PhysicalFileSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot"));
+            fileserverOptions.StaticFileOptions.ServeUnknownFileTypes = true;
+            fileserverOptions.StaticFileOptions.DefaultContentType = "text/plain";
+
+            appBuilder.UseFileServer(fileserverOptions);
+
         }
     }
 }
