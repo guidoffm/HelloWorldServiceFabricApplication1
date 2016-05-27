@@ -1,0 +1,12 @@
+﻿{
+  "compilerOptions": {
+    "module": "es2015"
+    
+  },
+  "files": [
+    "./config.js",
+    "./app.ts"
+
+  ],
+  "compileOnSave": true
+}

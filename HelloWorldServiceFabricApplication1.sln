@@ -7,6 +7,10 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "HelloWorldServiceFabricAppl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{119FFE8A-BEA0-491C-8A35-37F63E3DDA2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actor1", "Actor1\Actor1.csproj", "{8DDD40B2-7FB0-47B7-A89B-BF74296E045C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actor1.Interfaces", "Actor1.Interfaces\Actor1.Interfaces.csproj", "{021C32FE-682E-4B8B-BDBB-63528712923B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,6 +27,14 @@ Global
 		{119FFE8A-BEA0-491C-8A35-37F63E3DDA2F}.Debug|x64.Build.0 = Debug|x64
 		{119FFE8A-BEA0-491C-8A35-37F63E3DDA2F}.Release|x64.ActiveCfg = Release|x64
 		{119FFE8A-BEA0-491C-8A35-37F63E3DDA2F}.Release|x64.Build.0 = Release|x64
+		{8DDD40B2-7FB0-47B7-A89B-BF74296E045C}.Debug|x64.ActiveCfg = Debug|x64
+		{8DDD40B2-7FB0-47B7-A89B-BF74296E045C}.Debug|x64.Build.0 = Debug|x64
+		{8DDD40B2-7FB0-47B7-A89B-BF74296E045C}.Release|x64.ActiveCfg = Release|x64
+		{8DDD40B2-7FB0-47B7-A89B-BF74296E045C}.Release|x64.Build.0 = Release|x64
+		{021C32FE-682E-4B8B-BDBB-63528712923B}.Debug|x64.ActiveCfg = Debug|x64
+		{021C32FE-682E-4B8B-BDBB-63528712923B}.Debug|x64.Build.0 = Debug|x64
+		{021C32FE-682E-4B8B-BDBB-63528712923B}.Release|x64.ActiveCfg = Release|x64
+		{021C32FE-682E-4B8B-BDBB-63528712923B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

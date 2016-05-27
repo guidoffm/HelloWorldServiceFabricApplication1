@@ -2,7 +2,13 @@
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="HelloWorldServiceFabricApplication1Type" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
    <Parameters>
       <Parameter Name="Web_InstanceCount" DefaultValue="-1" />
+      <Parameter Name="Actor1ActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="Actor1ActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="Actor1ActorService_TargetReplicaSetSize" DefaultValue="3" />
    </Parameters>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="Actor1Pkg" ServiceManifestVersion="1.0.0" />
+   </ServiceManifestImport>
    <ServiceManifestImport>
       <ServiceManifestRef ServiceManifestName="WebPkg" ServiceManifestVersion="1.0.0" />
       <ConfigOverrides />
@@ -12,6 +18,11 @@
          <StatelessService ServiceTypeName="WebType" InstanceCount="[Web_InstanceCount]">
             <SingletonPartition />
          </StatelessService>
+      </Service>
+      <Service Name="Actor1ActorService" GeneratedIdRef="d7debc79-d75f-4b64-b46e-da1d418c7ed9|Persisted">
+         <StatefulService ServiceTypeName="Actor1ActorServiceType" TargetReplicaSetSize="[Actor1ActorService_TargetReplicaSetSize]" MinReplicaSetSize="[Actor1ActorService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[Actor1ActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
       </Service>
    </DefaultServices>
 </ApplicationManifest>
