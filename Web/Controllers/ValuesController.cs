@@ -15,7 +15,7 @@ namespace Web.Controllers
         public async Task<IHttpActionResult> Get()
         {
             // Create a randomly distributed actor ID
-            ActorId actorId = ActorId.CreateRandom();
+            var actorId = ActorId.CreateRandom();
 
             // This only creates a proxy object, it does not activate an actor or invoke any methods yet.
             var myActor = ActorProxy.Create<IActor1>(actorId, new Uri("fabric:/HelloWorldServiceFabricApplication1/Actor1ActorService"));

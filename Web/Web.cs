@@ -12,21 +12,28 @@ namespace Web
     /// <summary>
     /// The FabricRuntime creates an instance of this class for each service type instance. 
     /// </summary>
-    internal sealed class Web : StatelessService
+    internal sealed class Web : StatefulService
     {
-        public Web(StatelessServiceContext context)
+
+        private static Web _instance;
+
+        public static Web Instance => _instance;
+
+        public Web(StatefulServiceContext context)
             : base(context)
-        { }
+        {
+            _instance = this;
+        }
 
         /// <summary>
         /// Optional override to create listeners (like tcp, http) for this service instance.
         /// </summary>
         /// <returns>The collection of listeners.</returns>
-        protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
+        protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceInstanceListener[]
+            return new[]
             {
-                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, ServiceEventSource.Current, "ServiceEndpoint"))
+                new ServiceReplicaListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, ServiceEventSource.Current, "ServiceEndpoint"))
             };
         }
     }

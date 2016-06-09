@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actor1", "Actor1\Actor1.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actor1.Interfaces", "Actor1.Interfaces\Actor1.Interfaces.csproj", "{021C32FE-682E-4B8B-BDBB-63528712923B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stateless1", "Stateless1\Stateless1.csproj", "{6D0B4AD5-B55D-4A31-B6AC-B91EF6F0024A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueService", "QueueService\QueueService.csproj", "{7021BF4C-1A01-46C9-A353-915717776CB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -35,6 +39,14 @@ Global
 		{021C32FE-682E-4B8B-BDBB-63528712923B}.Debug|x64.Build.0 = Debug|x64
 		{021C32FE-682E-4B8B-BDBB-63528712923B}.Release|x64.ActiveCfg = Release|x64
 		{021C32FE-682E-4B8B-BDBB-63528712923B}.Release|x64.Build.0 = Release|x64
+		{6D0B4AD5-B55D-4A31-B6AC-B91EF6F0024A}.Debug|x64.ActiveCfg = Debug|x64
+		{6D0B4AD5-B55D-4A31-B6AC-B91EF6F0024A}.Debug|x64.Build.0 = Debug|x64
+		{6D0B4AD5-B55D-4A31-B6AC-B91EF6F0024A}.Release|x64.ActiveCfg = Release|x64
+		{6D0B4AD5-B55D-4A31-B6AC-B91EF6F0024A}.Release|x64.Build.0 = Release|x64
+		{7021BF4C-1A01-46C9-A353-915717776CB3}.Debug|x64.ActiveCfg = Debug|x64
+		{7021BF4C-1A01-46C9-A353-915717776CB3}.Debug|x64.Build.0 = Debug|x64
+		{7021BF4C-1A01-46C9-A353-915717776CB3}.Release|x64.ActiveCfg = Release|x64
+		{7021BF4C-1A01-46C9-A353-915717776CB3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

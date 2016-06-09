@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace Web
+namespace QueueService
 {
     internal static class Program
     {
@@ -21,11 +20,12 @@ namespace Web
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
-                ServiceRuntime.RegisterServiceAsync("WebType", context => new Web(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("QueueServiceType",
+                    context => new QueueService(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Web).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(QueueService).Name);
 
-                // Prevents this host process from terminating so services keeps running. 
+                // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);
             }
             catch (Exception e)
