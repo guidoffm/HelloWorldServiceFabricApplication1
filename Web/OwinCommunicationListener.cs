@@ -65,28 +65,14 @@ namespace Web
 
             if (this.serviceContext is StatefulServiceContext)
             {
-                StatefulServiceContext statefulServiceContext = this.serviceContext as StatefulServiceContext;
+                //StatefulServiceContext statefulServiceContext = (StatefulServiceContext)this.serviceContext;
 
-                this.listeningAddress = string.Format(
-                    CultureInfo.InvariantCulture,
-                    "http://+:{0}/{1}{2}/{3}/{4}",
-                    port,
-                    string.IsNullOrWhiteSpace(this.appRoot)
-                        ? string.Empty
-                        : this.appRoot.TrimEnd('/') + '/',
-                    statefulServiceContext.PartitionId,
-                    statefulServiceContext.ReplicaId,
-                    Guid.NewGuid());
+                //this.listeningAddress = $"http://+:{port}/{(string.IsNullOrWhiteSpace(this.appRoot) ? string.Empty : this.appRoot.TrimEnd('/'))}/{statefulServiceContext.PartitionId}/{statefulServiceContext.ReplicaId}/{Guid.NewGuid()}";
+                this.listeningAddress = $"http://+:{port}/{(string.IsNullOrWhiteSpace(this.appRoot) ? string.Empty : this.appRoot.TrimEnd('/'))}";
             }
             else if (this.serviceContext is StatelessServiceContext)
             {
-                this.listeningAddress = string.Format(
-                    CultureInfo.InvariantCulture,
-                    "http://+:{0}/{1}",
-                    port,
-                    string.IsNullOrWhiteSpace(this.appRoot)
-                        ? string.Empty
-                        : this.appRoot.TrimEnd('/') + '/');
+                this.listeningAddress = string.Format(CultureInfo.InvariantCulture, "http://+:{0}/{1}", port, string.IsNullOrWhiteSpace(this.appRoot) ? string.Empty : this.appRoot.TrimEnd('/') + '/');
             }
             else
             {
@@ -107,7 +93,7 @@ namespace Web
             }
             catch (Exception ex)
             {
-                this.eventSource.ServiceMessage(this.serviceContext, "Web server failed to open. " + ex.ToString());
+                this.eventSource.ServiceMessage(this.serviceContext, "Web server failed to open. " + ex);
 
                 this.StopWebServer();
 

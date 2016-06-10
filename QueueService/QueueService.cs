@@ -1,45 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
+
 namespace QueueService
 {
-
-
-    public class MyListener : ICommunicationListener
-    {
-        public Task<string> OpenAsync(CancellationToken cancellationToken)
-        {
-            //throw new NotImplementedException();
-            return Task.FromResult("Hallo");
-        }
-
-        public async Task CloseAsync(CancellationToken cancellationToken)
-        {
-            //throw new NotImplementedException();
-            await Task.Delay(TimeSpan.Zero, cancellationToken);
-        }
-
-        public void Abort()
-        {
-            //throw new NotImplementedException();
-        }
-    }
-
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
     internal sealed class QueueService : StatefulService
     {
+        public static IReliableStateManager StateManagerInstance { get; private set; }
+
         public QueueService(StatefulServiceContext context)
             : base(context)
-        { }
+        {
+            StateManagerInstance = StateManager;
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.
@@ -50,7 +33,12 @@ namespace QueueService
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new[] { new ServiceReplicaListener(statefulServiceContext => new MyListener()) };
+            //ServiceEventSource.Current.CreateCommunicationListener(ServiceEventSourceName);
+
+            return new[]
+            {
+                new ServiceReplicaListener(initParams => new OwinCommunicationListener(new Startup(StateManager), initParams))
+            };
         }
 
         /// <summary>
@@ -63,7 +51,7 @@ namespace QueueService
             // TODO: Replace the following sample code with your own logic 
             //       or remove this RunAsync override if it's not needed in your service.
 
-            var reliableQueue = await StateManager.GetOrAddAsync<IReliableQueue<string>>("Gedöns");
+            IReliableQueue<string> reliableQueue = await StateManager.GetOrAddAsync<IReliableQueue<string>>("Queue1");
 
             while (true)
             {
@@ -71,16 +59,17 @@ namespace QueueService
 
                 using (var tx = StateManager.CreateTransaction())
                 {
-                    var result = await reliableQueue.TryDequeueAsync(tx);
+                    //var result = await reliableQueue.TryDequeueAsync(tx);
 
-                    ServiceEventSource.Current.ServiceMessage(this, "Current Counter Value: {0}",
-                        result.HasValue ? result.Value : "Value does not exist.");
+                    //ServiceEventSource.Current.ServiceMessage(this, "Current Counter Value: {0}", result.HasValue ? result.Value : "Value does not exist.");
 
-                    if (result.HasValue)
-                    {
-                        await reliableQueue.EnqueueAsync(tx, result.Value);
+                    //if (result.HasValue)
+                    //{
+                    //    await reliableQueue.EnqueueAsync(tx, result.Value);
 
-                    }
+                    //}
+
+                    await reliableQueue.EnqueueAsync(tx, DateTimeOffset.Now.ToString());
 
                     // If an exception is thrown before calling CommitAsync, the transaction aborts, all changes are 
                     // discarded, and nothing is saved to the secondary replicas.
